@@ -1,0 +1,424 @@
+You are a Principal Software Architect and Senior Full Stack Engineer.
+
+Your task is to build a COMPLETE, production-quality, hackathon-ready application.
+
+DO NOT generate code snippets.
+
+Generate an ENTIRE repository.
+
+The repository must be runnable without additional coding.
+
+==========================================================
+PROJECT
+==========================================================
+
+Project Name:
+Policy Renewal Agent
+
+Objective:
+
+Develop an Agentic AI application that helps insurance companies increase policy renewals using AI Agents.
+
+The solution must use modern AI architecture including:
+
+• Goal Understanding
+• Memory
+• Planning
+• Tool Use
+• Workflow Orchestration
+• RAG
+• Multi-Agent Collaboration
+• Execution
+• Monitoring
+
+==========================================================
+TECH STACK
+==========================================================
+
+Backend
+
+FastAPI
+
+Python 3.12
+
+LangGraph
+
+LangChain
+
+OpenAI GPT-5.5 (or Azure OpenAI)
+
+ChromaDB
+
+SQLite
+
+Redis (optional)
+
+Pydantic
+
+SQLAlchemy
+
+Frontend
+
+React
+
+TypeScript
+
+Vite
+
+TailwindCSS
+
+shadcn/ui
+
+Deployment
+
+Docker
+
+Docker Compose
+
+GitHub Actions
+
+==========================================================
+FEATURES
+==========================================================
+
+Customer Login
+
+Customer Profile
+
+Policy Dashboard
+
+Policy Renewal Reminder
+
+Renewal Recommendation
+
+Policy Q&A (RAG)
+
+Chat Interface
+
+Renew Policy
+
+Notification Center
+
+Admin Dashboard
+
+==========================================================
+AI AGENTS
+==========================================================
+
+Create independent agents.
+
+1. Goal Understanding Agent
+
+Detect:
+
+Intent
+
+Policy Number
+
+Urgency
+
+Customer
+
+2. Customer Memory Agent
+
+Stores
+
+History
+
+Claims
+
+Preferences
+
+Past conversations
+
+3. Policy Knowledge Agent
+
+Uses RAG.
+
+Reads PDF policies.
+
+Answers customer questions.
+
+4. Renewal Recommendation Agent
+
+Analyzes
+
+Age
+
+Policy Type
+
+Claim History
+
+Risk
+
+Renewal Probability
+
+Creates personalized renewal recommendations.
+
+5. Notification Agent
+
+Email
+
+SMS
+
+WhatsApp
+
+Generate personalized messages.
+
+6. Workflow Orchestrator
+
+Implement using LangGraph.
+
+Workflow:
+
+Customer Login
+
+↓
+
+Load Customer Memory
+
+↓
+
+Retrieve Policy
+
+↓
+
+Retrieve RAG Context
+
+↓
+
+Reason
+
+↓
+
+Generate Recommendation
+
+↓
+
+Ask Customer
+
+↓
+
+Renew
+
+↓
+
+Send Notification
+
+==========================================================
+RAG
+==========================================================
+
+Implement
+
+PDF Loader
+
+Chunking
+
+Embeddings
+
+ChromaDB
+
+Retriever
+
+Context Injection
+
+LLM
+
+==========================================================
+DATABASE
+==========================================================
+
+SQLite
+
+Tables
+
+Customer
+
+Policy
+
+Renewal
+
+Claim
+
+Conversation
+
+Notification
+
+==========================================================
+REST APIs
+==========================================================
+
+Authentication
+
+Customer
+
+Policies
+
+Renewals
+
+Chat
+
+Notifications
+
+Knowledge Upload
+
+==========================================================
+FRONTEND
+==========================================================
+
+Beautiful UI.
+
+Pages
+
+Login
+
+Dashboard
+
+Customer Profile
+
+Policy Details
+
+Renewal Recommendation
+
+Chat
+
+Admin
+
+Responsive.
+
+==========================================================
+MONITORING
+==========================================================
+
+Logging
+
+Error Handling
+
+Retry
+
+LangSmith support
+
+==========================================================
+SECURITY
+==========================================================
+
+JWT
+
+Role Based Access
+
+Secrets via .env
+
+Input Validation
+
+==========================================================
+DOCKER
+==========================================================
+
+Create
+
+Dockerfile
+
+docker-compose.yml
+
+.env.example
+
+==========================================================
+PROJECT STRUCTURE
+==========================================================
+
+Generate folders
+
+backend/
+
+frontend/
+
+agents/
+
+workflows/
+
+rag/
+
+db/
+
+models/
+
+schemas/
+
+routers/
+
+services/
+
+tools/
+
+tests/
+
+docs/
+
+docker/
+
+scripts/
+
+==========================================================
+DOCUMENTATION
+==========================================================
+
+Generate
+
+README.md
+
+Architecture.md
+
+Deployment.md
+
+API.md
+
+Prompt.md
+
+==========================================================
+TESTS
+==========================================================
+
+Create
+
+pytest
+
+Frontend tests
+
+==========================================================
+IMPORTANT
+==========================================================
+
+Do NOT stop after generating one file.
+
+Continue generating every required file.
+
+Whenever a file is completed, continue automatically with the next file.
+
+Maintain the entire repository.
+
+Do not ask for confirmation.
+
+At the end provide:
+
+✔ Complete repository
+
+✔ Docker support
+
+✔ Deployment instructions
+
+✔ Sample data
+
+✔ Sample PDF policies
+
+✔ Ready to run
+
+✔ No placeholders
+
+✔ No TODOs
+
+✔ No pseudocode
+
+Everything should compile successfully.
+
+Continue until the repository is 100% complete.
