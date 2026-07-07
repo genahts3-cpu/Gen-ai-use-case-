@@ -1,0 +1,579 @@
+You are a senior AI software engineer and systems architect.
+
+Your task is to generate a **production-ready autonomous coding agent** in a **single Python file** named `agent.py`.
+
+## Goal
+
+Create an autonomous software engineering agent similar to Cursor, Claude Code, Codex CLI, or OpenHands.
+
+The output must be a complete Python script.
+
+Do not omit code.
+
+Do not use placeholders.
+
+Do not say "implement this later."
+
+Everything must be fully implemented.
+
+---
+
+# Requirements
+
+The entire project must exist in one file:
+
+agent.py
+
+No external modules except:
+
+* openai
+* requests
+* pydantic
+* rich
+* tiktoken
+
+Everything else must use the Python standard library.
+
+Compatible with Python 3.12+
+
+---
+
+# Architecture
+
+Implement the following classes:
+
+Config
+
+Logger
+
+LLMClient
+
+MemoryManager
+
+PromptManager
+
+Workspace
+
+FileTools
+
+TerminalTools
+
+Planner
+
+Reviewer
+
+Debugger
+
+Task
+
+TaskQueue
+
+CodingAgent
+
+ProjectState
+
+ExecutionEngine
+
+RetryManager
+
+ContextManager
+
+GitManager
+
+SafetyManager
+
+Session
+
+Metrics
+
+Each class must be fully implemented.
+
+---
+
+# LLM
+
+Use the OpenAI Responses API.
+
+Support:
+
+GPT-5.5
+
+GPT-5
+
+Future models
+
+Streaming responses.
+
+JSON output.
+
+Tool calling.
+
+Reasoning models.
+
+Temperature.
+
+Retry logic.
+
+Automatic backoff.
+
+Conversation history.
+
+Token counting.
+
+Context trimming.
+
+---
+
+# Planner
+
+The planner must:
+
+Break a user request into tasks.
+
+Prioritize tasks.
+
+Detect dependencies.
+
+Generate subtasks.
+
+Estimate complexity.
+
+Maintain execution order.
+
+Update progress.
+
+---
+
+# Memory
+
+Implement:
+
+Short-term memory
+
+Long-term memory
+
+Project memory
+
+Conversation history
+
+Compressed summaries
+
+Automatic context reduction
+
+Vector-like semantic retrieval using cosine similarity over local embeddings or token frequency (without requiring an external vector database).
+
+---
+
+# File Tools
+
+Implement tools:
+
+read_file()
+
+write_file()
+
+append_file()
+
+replace_text()
+
+delete_file()
+
+move_file()
+
+copy_file()
+
+create_directory()
+
+delete_directory()
+
+list_files()
+
+search_files()
+
+search_text()
+
+tree()
+
+hash_file()
+
+backup()
+
+restore()
+
+---
+
+# Workspace
+
+Maintain an isolated workspace.
+
+Never edit outside the workspace.
+
+Support:
+
+relative paths
+
+absolute paths
+
+path validation
+
+safe deletion
+
+atomic writes
+
+---
+
+# Terminal
+
+Implement:
+
+run_command()
+
+capture stdout
+
+capture stderr
+
+timeout
+
+cancel
+
+stream output
+
+working directory
+
+environment variables
+
+return codes
+
+support:
+
+Windows
+
+Linux
+
+macOS
+
+---
+
+# Coding Loop
+
+Main execution loop:
+
+Receive task
+
+↓
+
+Plan
+
+↓
+
+Generate code
+
+↓
+
+Write files
+
+↓
+
+Run build
+
+↓
+
+Run tests
+
+↓
+
+Detect failures
+
+↓
+
+Analyze failures
+
+↓
+
+Fix failures
+
+↓
+
+Repeat
+
+↓
+
+Project succeeds
+
+Maximum retries configurable.
+
+---
+
+# Self Healing
+
+Automatically fix:
+
+Syntax errors
+
+Import errors
+
+Dependency issues
+
+Type errors
+
+Runtime errors
+
+Test failures
+
+Formatting
+
+Linting
+
+Broken paths
+
+Missing files
+
+Configuration errors
+
+---
+
+# Code Review
+
+Implement automatic review:
+
+Security
+
+Performance
+
+Maintainability
+
+Readability
+
+Complexity
+
+Dead code
+
+Unused imports
+
+Refactoring
+
+Apply fixes automatically.
+
+---
+
+# Git
+
+Implement:
+
+git init
+
+status
+
+commit
+
+branch
+
+diff
+
+stash
+
+restore
+
+rollback
+
+automatic commits
+
+---
+
+# Safety
+
+Never:
+
+delete arbitrary system files
+
+run dangerous commands
+
+modify user directories
+
+execute rm -rf outside workspace
+
+execute destructive PowerShell commands
+
+Implement allowlists.
+
+Implement deny lists.
+
+Require confirmation for dangerous operations.
+
+---
+
+# Logging
+
+Rich console output.
+
+Progress bars.
+
+Task status.
+
+Colored logs.
+
+Execution time.
+
+Memory usage.
+
+Errors.
+
+Warnings.
+
+Debug mode.
+
+Log file.
+
+---
+
+# Configuration
+
+Read config from:
+
+config.json
+
+Environment variables
+
+Command-line arguments
+
+Defaults
+
+---
+
+# CLI
+
+Support:
+
+python agent.py
+
+Task stored in a variable:
+
+TASK = """
+Build a complete FastAPI REST API
+with JWT authentication,
+PostgreSQL,
+Docker,
+Alembic,
+Redis,
+Pytest,
+Swagger,
+GitHub Actions.
+"""
+
+Running the script should execute the task automatically.
+
+No interactive input is required.
+
+---
+
+# Features
+
+Automatic project planning
+
+Automatic folder generation
+
+Automatic code generation
+
+Automatic documentation generation
+
+Automatic README creation
+
+Automatic requirements.txt generation
+
+Automatic pyproject.toml generation
+
+Automatic Dockerfile generation
+
+Automatic docker-compose.yml generation
+
+Automatic .gitignore generation
+
+Automatic CI pipeline generation
+
+Automatic unit tests
+
+Automatic integration tests
+
+Automatic debugging
+
+Automatic retries
+
+Automatic dependency installation
+
+Automatic formatting
+
+Automatic linting
+
+Automatic build verification
+
+Automatic final report
+
+---
+
+# Prompt Engineering
+
+Use system prompts internally.
+
+Use chain-of-thought internally without exposing it.
+
+Use structured JSON responses.
+
+Validate JSON.
+
+Recover from malformed outputs.
+
+---
+
+# Performance
+
+Parallel file generation where appropriate.
+
+Concurrent task execution.
+
+Caching.
+
+Incremental context updates.
+
+Streaming responses.
+
+---
+
+# Code Quality
+
+Use:
+
+Type hints
+
+Dataclasses
+
+Pydantic models
+
+Enums
+
+Context managers
+
+Thread-safe components
+
+Proper exception handling
+
+Retry decorators
+
+Comprehensive docstrings
+
+Logging
+
+Unit-testable architecture
+
+---
+
+# Output
+
+Return only the complete Python source code for `agent.py`.
+
+Do not include explanations.
+
+Do not omit any implementation.
+
+Do not shorten the output.
+
+Generate production-quality code from the first line to the last line.
