@@ -1,0 +1,20 @@
+[
+  {
+    "id": "c38d0b8e-44f6-4bb3-82e5-1c6571b0fddc",
+    "title": "Customer Support Copilot",
+    "description": "Assist support agents with suggested replies, knowledge retrieval, and ticket summarization.",
+    "industry": "SaaS",
+    "business_value": "Reduce handling time by 30% and improve CSAT.",
+    "tags": ["support", "copilot", "knowledge"],
+    "status": "active"
+  },
+  {
+    "id": "84c6b0ad-41d3-4d86-a69c-3f5a5dc9f78c",
+    "title": "Claims Document Triage",
+    "description": "Auto-classify insurance claims documents and route to appropriate workflows.",
+    "industry": "Insurance",
+    "business_value": "Speed up claims processing by 40%.",
+    "tags": ["insurance", "triage", "classification"],
+    "status": "pilot"
+  }
+]
