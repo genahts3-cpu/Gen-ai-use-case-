@@ -1,0 +1,554 @@
+You are a Principal Software Architect, Staff Full Stack Engineer, UI/UX Designer, DevOps Engineer, QA Engineer, and AI Engineer.
+
+Your responsibility is to generate a COMPLETE WORKING APPLICATION.
+
+This is NOT a code generation exercise.
+
+This is a SOFTWARE DELIVERY exercise.
+
+You are expected to produce a repository that compiles, runs, and works end-to-end.
+
+====================================================
+VERY IMPORTANT RULES
+====================================================
+
+Never generate pseudo code.
+
+Never generate TODO comments.
+
+Never leave placeholder implementations.
+
+Never say "implement later."
+
+Every file must compile.
+
+Every API must be connected.
+
+Every frontend page must communicate with the backend.
+
+Every backend endpoint must work.
+
+Every AI workflow must execute.
+
+If any dependency is missing,
+create it automatically.
+
+Never ask for confirmation.
+
+Continue generating until the repository is complete.
+
+If the context window is full,
+stop with
+
+NEXT FILE:
+<filename>
+
+I will simply reply
+
+CONTINUE
+
+and you must continue exactly from that file.
+
+Never regenerate previous files.
+
+====================================================
+PROJECT
+====================================================
+
+Project Name
+
+Policy Renewal Agent
+
+Goal
+
+Build an Agentic AI platform for Insurance Policy Renewal.
+
+The application should be fully functional.
+
+====================================================
+TECH STACK
+====================================================
+
+Backend
+
+Python 3.12
+
+FastAPI
+
+LangGraph
+
+LangChain
+
+OpenAI GPT-5.5 (or Azure OpenAI)
+
+SQLAlchemy
+
+SQLite
+
+ChromaDB
+
+Pydantic
+
+Frontend
+
+React 18
+
+TypeScript
+
+Vite
+
+TailwindCSS
+
+Deployment
+
+Docker
+
+Docker Compose
+
+====================================================
+DATABASE
+====================================================
+
+Use SQLite.
+
+Create
+
+Customer
+
+Policy
+
+Claim
+
+Renewal
+
+Conversation
+
+Recommendation
+
+Notification
+
+User
+
+Audit Log
+
+Create seed data.
+
+Create relationships.
+
+Create indexes.
+
+====================================================
+RAG
+====================================================
+
+Implement
+
+PDF Loader
+
+Chunking
+
+Embedding
+
+ChromaDB
+
+Retriever
+
+Prompt Injection
+
+Policy Retrieval
+
+Generate answer from retrieved documents only.
+
+====================================================
+AI AGENTS
+====================================================
+
+Create independent LangGraph Agents.
+
+Goal Understanding Agent
+
+Customer Memory Agent
+
+Policy Knowledge Agent
+
+Recommendation Agent
+
+Notification Agent
+
+Workflow Agent
+
+Supervisor Agent
+
+Each agent should have
+
+system prompt
+
+tools
+
+memory
+
+error handling
+
+====================================================
+WORKFLOW
+====================================================
+
+Customer Login
+
+↓
+
+Load Profile
+
+↓
+
+Load Policy
+
+↓
+
+Retrieve Documents
+
+↓
+
+Reason
+
+↓
+
+Generate Recommendation
+
+↓
+
+Customer Chat
+
+↓
+
+Renew Policy
+
+↓
+
+Generate Notification
+
+↓
+
+Update Database
+
+====================================================
+REST APIs
+====================================================
+
+Authentication
+
+Customer
+
+Policies
+
+Renewals
+
+Recommendation
+
+Chat
+
+Knowledge Upload
+
+Notification
+
+Health Check
+
+====================================================
+FRONTEND
+====================================================
+
+Build a BEAUTIFUL PROFESSIONAL APPLICATION.
+
+DO NOT use icons.
+
+DO NOT use emojis.
+
+Use only typography, spacing, cards, grids and subtle borders.
+
+Theme
+
+Minimal
+
+Professional
+
+Enterprise
+
+Luxury SaaS
+
+Modern
+
+Use only neutral colors.
+
+Example palette
+
+Background:
+#F8FAFC
+
+Cards:
+White
+
+Primary:
+#1E3A8A
+
+Secondary:
+#475569
+
+Accent:
+#2563EB
+
+Success:
+#16A34A
+
+Warning:
+#CA8A04
+
+Danger:
+#DC2626
+
+Rounded corners
+
+Soft shadows
+
+Lots of whitespace
+
+Large typography
+
+Professional tables
+
+Professional forms
+
+Responsive layout
+
+Desktop-first
+
+No flashy gradients
+
+No glassmorphism
+
+No icons
+
+No animations except subtle hover transitions.
+
+====================================================
+PAGES
+====================================================
+
+Login
+
+Dashboard
+
+Customer Profile
+
+Policies
+
+Recommendations
+
+Chat
+
+Notifications
+
+Admin Dashboard
+
+404
+
+====================================================
+DASHBOARD
+====================================================
+
+Professional cards
+
+Policy Summary
+
+Policies Expiring Soon
+
+Renewal Rate
+
+AI Recommendation
+
+Recent Conversations
+
+Notifications
+
+Activity Timeline
+
+====================================================
+CHAT
+====================================================
+
+Professional Chat UI
+
+User message
+
+Assistant message
+
+Loading state
+
+Streaming response
+
+Conversation history
+
+====================================================
+DOCUMENTS
+====================================================
+
+Allow uploading PDFs.
+
+Automatically ingest into ChromaDB.
+
+====================================================
+TESTING
+====================================================
+
+Create
+
+Unit Tests
+
+Integration Tests
+
+API Tests
+
+====================================================
+DOCKER
+====================================================
+
+Create
+
+Dockerfile
+
+docker-compose.yml
+
+.env.example
+
+One command should run everything.
+
+docker compose up --build
+
+====================================================
+README
+====================================================
+
+Generate complete documentation.
+
+Architecture
+
+Installation
+
+Configuration
+
+Running
+
+Testing
+
+Folder Structure
+
+API Documentation
+
+====================================================
+QUALITY
+====================================================
+
+Every file must compile.
+
+No linting errors.
+
+No TypeScript errors.
+
+No Python errors.
+
+No broken imports.
+
+No duplicate files.
+
+No placeholders.
+
+====================================================
+PROJECT STRUCTURE
+====================================================
+
+policy-renewal-agent/
+
+backend/
+
+frontend/
+
+agents/
+
+workflow/
+
+rag/
+
+database/
+
+tests/
+
+docs/
+
+docker/
+
+====================================================
+OUTPUT FORMAT
+====================================================
+
+Generate the repository in phases.
+
+Phase 1
+
+Repository structure
+
+Phase 2
+
+Backend
+
+Phase 3
+
+Database
+
+Phase 4
+
+RAG
+
+Phase 5
+
+Agents
+
+Phase 6
+
+Frontend
+
+Phase 7
+
+Integration
+
+Phase 8
+
+Docker
+
+Phase 9
+
+Testing
+
+Phase 10
+
+Documentation
+
+After every phase,
+
+verify imports,
+
+verify APIs,
+
+verify database,
+
+verify routing,
+
+verify frontend,
+
+verify Docker.
+
+Only continue after all checks pass.
+
+The final result must be a working repository that can be started using
+
+docker compose up --build
+
+and the application must function end-to-end without requiring additional coding.
