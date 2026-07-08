@@ -1,0 +1,571 @@
+You are a Principal Full Stack Engineer.
+
+IMPORTANT:
+
+An existing Policy Renewal Agent application already exists and works end-to-end.
+
+DO NOT regenerate the application.
+
+DO NOT recreate existing modules.
+
+DO NOT modify working features unnecessarily.
+
+Your task is to ADD a complete Data Management Module.
+
+Everything must be integrated into the existing application.
+
+==================================================
+OBJECTIVE
+==================================================
+
+Create an Admin Data Management module that allows users to:
+
+1. Upload documents into ChromaDB
+2. Upload datasets into SQLite
+3. View uploaded documents
+4. View Chroma collections
+5. View database record counts
+6. Search uploaded documents
+7. Monitor indexing status
+8. Delete documents
+9. Re-import datasets
+
+The solution must work end-to-end.
+
+==================================================
+NEW MENU
+==================================================
+
+Admin
+|
+|── Dashboard
+|── Agent Execution
+|── Data Management
+|── Audit Logs
+|── System Health
+
+==================================================
+DATA MANAGEMENT PAGE
+==================================================
+
+Create a page:
+
+Admin → Data Management
+
+Sections:
+
+------------------------------------
+Document Upload
+------------------------------------
+
+Choose File
+
+Supported:
+
+PDF
+DOCX
+TXT
+
+Upload Button
+
+Index Status
+
+Chunks Created
+
+Embeddings Generated
+
+Collection Name
+
+------------------------------------
+Dataset Upload
+------------------------------------
+
+Choose File
+
+Supported:
+
+CSV
+XLSX
+
+Upload Button
+
+Import Status
+
+Records Imported
+
+Failed Records
+
+------------------------------------
+Collections
+------------------------------------
+
+insurance_policies
+policy_faqs
+claim_rules
+brochures
+terms_conditions
+
+Document Count
+
+Search
+
+Delete
+
+------------------------------------
+Database Statistics
+------------------------------------
+
+Customers
+Policies
+Claims
+Renewals
+Recommendations
+Notifications
+
+==================================================
+UI REQUIREMENTS
+==================================================
+
+Maintain existing design system.
+
+Professional
+
+Minimal
+
+Enterprise
+
+No icons
+
+No emojis
+
+No gradients
+
+No glassmorphism
+
+Use:
+
+Typography
+Cards
+Spacing
+Tables
+
+Colors:
+
+Background:
+#F8FAFC
+
+Cards:
+White
+
+Primary:
+#1E3A8A
+
+Secondary:
+#475569
+
+Accent:
+#2563EB
+
+Success:
+#16A34A
+
+Warning:
+#CA8A04
+
+Danger:
+#DC2626
+
+Responsive layout.
+
+Desktop-first.
+
+==================================================
+BACKEND APIs
+==================================================
+
+Create:
+
+POST /upload/document
+
+POST /upload/dataset
+
+GET /collections
+
+GET /collections/{collectionName}
+
+GET /documents
+
+GET /database/stats
+
+DELETE /documents/{documentId}
+
+POST /datasets/reimport
+
+GET /datasets/status
+
+==================================================
+DOCUMENT INGESTION
+==================================================
+
+Allowed Files:
+
+pdf
+docx
+txt
+
+Maximum Size:
+
+20 MB
+
+Flow:
+
+Upload
+↓
+
+Save File
+↓
+
+Extract Text
+↓
+
+Chunk Text
+
+Chunk Size:
+1000
+
+Overlap:
+200
+
+↓
+
+Generate Embeddings
+
+↓
+
+Store in ChromaDB
+
+↓
+
+Return Status
+
+Response:
+
+{
+  "status": "Indexed",
+  "collection": "insurance_policies",
+  "chunks": 18,
+  "embeddings": 18,
+  "documentName": "Health_Policy.pdf"
+}
+
+==================================================
+CHROMADB
+==================================================
+
+Collections:
+
+insurance_policies
+policy_faqs
+claim_rules
+brochures
+terms_conditions
+
+Store:
+
+document
+
+metadata
+
+source_file
+
+page_number
+
+chunk_number
+
+created_at
+
+Create service:
+
+backend/services/chroma_service.py
+
+Methods:
+
+create_collection()
+
+add_document()
+
+search_documents()
+
+get_collections()
+
+get_documents()
+
+delete_document()
+
+get_statistics()
+
+==================================================
+DATASET IMPORT
+==================================================
+
+Allowed Files:
+
+csv
+xlsx
+
+Maximum Size:
+
+20 MB
+
+Supported datasets:
+
+customers.csv
+policies.csv
+claims.csv
+renewals.csv
+recommendations.csv
+
+Flow:
+
+Upload
+↓
+
+Validate Columns
+↓
+
+Map Columns
+↓
+
+Insert Records
+↓
+
+Commit Transaction
+↓
+
+Return Status
+
+==================================================
+SQLITE IMPORT SERVICE
+==================================================
+
+Create:
+
+backend/services/dataset_service.py
+
+Methods:
+
+import_customers()
+
+import_policies()
+
+import_claims()
+
+import_renewals()
+
+import_recommendations()
+
+reimport_dataset()
+
+get_import_statistics()
+
+==================================================
+VALIDATION
+==================================================
+
+If columns are missing:
+
+Return:
+
+{
+  "status": "failed",
+  "message": "Invalid dataset structure."
+}
+
+If file type is invalid:
+
+Return:
+
+400 Invalid File Type
+
+==================================================
+DATABASE STATISTICS
+==================================================
+
+Create endpoint:
+
+GET /database/stats
+
+Response:
+
+{
+  "customers": 100,
+  "policies": 200,
+  "claims": 300,
+  "renewals": 100,
+  "recommendations": 50,
+  "documents": 25,
+  "embeddings": 240
+}
+
+==================================================
+COLLECTION DASHBOARD
+==================================================
+
+Create endpoint:
+
+GET /collections
+
+Response:
+
+[
+  {
+    "name": "insurance_policies",
+    "documents": 40
+  },
+  {
+    "name": "policy_faqs",
+    "documents": 20
+  }
+]
+
+==================================================
+DOCUMENT SEARCH
+==================================================
+
+Create:
+
+GET /documents
+
+Search by:
+
+document name
+
+collection
+
+keyword
+
+metadata
+
+Return:
+
+document
+
+collection
+
+source file
+
+chunks
+
+created date
+
+==================================================
+FRONTEND COMPONENTS
+==================================================
+
+Create:
+
+DataManagementPage
+
+DocumentUploadCard
+
+DatasetUploadCard
+
+CollectionsTable
+
+DatabaseStatisticsCard
+
+DocumentSearchTable
+
+ImportHistoryTable
+
+All components must use existing styling.
+
+No icons.
+
+==================================================
+USER EXPERIENCE
+==================================================
+
+After document upload:
+
+Show:
+
+Health_Policy.pdf
+
+Status:
+Indexed
+
+Collection:
+insurance_policies
+
+Chunks:
+18
+
+Embeddings:
+18
+
+After CSV upload:
+
+customers.csv
+
+Status:
+Imported
+
+Records:
+100
+
+Errors:
+0
+
+==================================================
+TESTING
+==================================================
+
+Create tests:
+
+Document Upload
+
+Dataset Upload
+
+CSV Validation
+
+File Validation
+
+ChromaDB Storage
+
+Collection Retrieval
+
+Statistics
+
+Delete Document
+
+Re-import Dataset
+
+==================================================
+IMPORTANT
+==================================================
+
+Do not regenerate existing modules.
+
+Modify existing code only where integration is necessary.
+
+Create only new files required for this feature.
+
+After implementation:
+
+1. Verify backend starts
+2. Verify React builds
+3. Verify document upload works
+4. Verify Chroma indexing works
+5. Verify CSV import works
+6. Verify statistics update automatically
+7. Verify Docker build passes
+8. Verify end-to-end flow
+
+At completion provide:
+
+Modified files
+New files
+API documentation
+Database migration changes
+Verification report
