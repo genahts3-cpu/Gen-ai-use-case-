@@ -1,0 +1,440 @@
+You are a Senior Software Architect and Principal Engineer.
+
+IMPORTANT:
+
+An existing Policy Renewal Agent application already exists and is working end-to-end.
+
+DO NOT regenerate the repository.
+
+DO NOT recreate files that already exist.
+
+DO NOT change working functionality.
+
+Your task is to ENHANCE the existing application by adding Enterprise Guardrails and Responsible AI capabilities.
+
+Follow the current project structure and coding patterns.
+
+==================================================
+OBJECTIVE
+==================================================
+
+Add a Guardrail Layer to the existing application.
+
+The application architecture should become:
+
+React UI
+    |
+API Gateway
+    |
+Guardrail Layer
+    |
+LangGraph Supervisor
+    |
+Goal Agent
+Memory Agent
+RAG Agent
+Recommendation Agent
+Notification Agent
+    |
+SQLite + ChromaDB
+
+==================================================
+FEATURE 1
+PROMPT INJECTION PROTECTION
+==================================================
+
+Create a Guardrail Service.
+
+Location:
+
+backend/services/guardrail_service.py
+
+Detect and block:
+
+ignore previous instructions
+show system prompt
+show database
+reveal secrets
+bypass instructions
+forget instructions
+print memory
+dump context
+show embeddings
+delete database
+
+If detected:
+
+Return:
+
+{
+  "safe": false,
+  "reason": "Potential prompt injection detected."
+}
+
+Integrate this service before every LLM invocation.
+
+==================================================
+FEATURE 2
+RAG GROUNDING
+==================================================
+
+Update RAG prompts.
+
+LLM must answer ONLY using retrieved documents.
+
+System Prompt:
+
+You are an Insurance Policy Assistant.
+
+Use ONLY the provided context.
+
+Never make assumptions.
+
+If information is unavailable, respond:
+
+"I could not find this information in the uploaded policy documents."
+
+Never hallucinate.
+
+Never generate policy information that is not present in context.
+
+==================================================
+FEATURE 3
+PII MASKING
+==================================================
+
+Create:
+
+backend/services/pii_service.py
+
+Mask:
+
+Email
+Phone
+Address
+Policy Number
+
+Examples:
+
+john.doe@gmail.com
+
+↓
+
+j***@gmail.com
+
+9876543210
+
+↓
+
+987*****10
+
+HLT123456789
+
+↓
+
+HLT******789
+
+Use masking everywhere in UI responses and logs.
+
+==================================================
+FEATURE 4
+AUTHORIZATION GUARDRAIL
+==================================================
+
+Ensure:
+
+Customer A can never access Customer B data.
+
+Before returning:
+
+Customer
+Policy
+Renewal
+Conversation
+
+Verify ownership.
+
+Return:
+
+403 Forbidden
+
+if access is invalid.
+
+==================================================
+FEATURE 5
+FILE UPLOAD VALIDATION
+==================================================
+
+Allow only:
+
+pdf
+txt
+docx
+
+Maximum file size:
+
+20 MB
+
+Reject:
+
+exe
+zip
+js
+bat
+sh
+
+Return:
+
+400 Invalid File
+
+==================================================
+FEATURE 6
+CONFIDENCE SCORE
+==================================================
+
+Update Recommendation Agent.
+
+Every recommendation should return:
+
+recommendation
+reasoning
+confidence
+
+Example:
+
+{
+  "recommendation": "Renew Now",
+  "confidence": 91,
+  "reasons": [
+      "Policy expires in 5 days",
+      "No claims in last 2 years",
+      "Eligible for loyalty discount"
+  ]
+}
+
+If confidence < 60:
+
+{
+  "recommendation":
+  "Needs Human Review"
+}
+
+==================================================
+FEATURE 7
+AUDIT LOGGING
+==================================================
+
+Create:
+
+Audit_Log
+
+Fields:
+
+id
+user_id
+question
+retrieved_documents
+response
+agent_name
+status
+timestamp
+
+Log:
+
+every chat
+every recommendation
+every renewal
+every document upload
+
+==================================================
+FEATURE 8
+AGENT PERMISSIONS
+==================================================
+
+Create agent permissions.
+
+Q&A Agent
+
+Can:
+Read ChromaDB
+
+Cannot:
+Renew policy
+Update database
+
+Renewal Agent
+
+Can:
+Renew policy
+
+Cannot:
+Read other customers
+
+Notification Agent
+
+Can:
+Send notifications
+
+Cannot:
+Access embeddings
+
+Enforce permissions before execution.
+
+==================================================
+FEATURE 9
+RATE LIMITING
+==================================================
+
+Implement:
+
+5 requests
+per minute
+per user
+
+Apply to:
+
+Chat
+Recommendation
+Document Upload
+
+==================================================
+FEATURE 10
+AGENT EXECUTION PANEL
+==================================================
+
+Create an endpoint:
+
+GET /agent-executions
+
+Response:
+
+[
+  {
+    "agent":
+    "Goal Agent",
+    "status":
+    "Completed",
+    "execution_time":
+    "120ms"
+  }
+]
+
+Create React page:
+
+Admin → Agent Execution
+
+Display:
+
+Agent
+Status
+Execution Time
+Timestamp
+
+Use:
+
+Cards
+Tables
+Typography
+
+No icons.
+
+==================================================
+FRONTEND
+==================================================
+
+Maintain existing UI.
+
+Use:
+
+Minimal
+Professional
+Enterprise
+Luxury SaaS
+
+No icons
+No emojis
+No gradients
+No glassmorphism
+
+Colors:
+
+Background:
+#F8FAFC
+
+Cards:
+White
+
+Primary:
+#1E3A8A
+
+Secondary:
+#475569
+
+Accent:
+#2563EB
+
+Success:
+#16A34A
+
+Warning:
+#CA8A04
+
+Danger:
+#DC2626
+
+Add:
+
+Responsible AI Dashboard
+
+Sections:
+
+Security Status
+Prompt Injection Status
+Uploaded Documents
+Agent Health
+Audit Logs
+Guardrail Statistics
+
+==================================================
+TESTS
+==================================================
+
+Create tests for:
+
+Prompt Injection
+PII Masking
+Authorization
+Rate Limiting
+Upload Validation
+RAG Grounding
+Audit Logging
+Agent Permissions
+
+==================================================
+IMPORTANT
+==================================================
+
+Do not regenerate working code.
+
+Modify existing files only when required.
+
+Create new files only when necessary.
+
+Maintain backward compatibility.
+
+After each modification:
+
+1. Run imports check
+2. Run backend tests
+3. Run frontend build
+4. Run Docker build
+5. Verify end-to-end workflow
+
+At completion provide:
+
+Modified files list
+New files list
+Database migration script
+API changes
+UI screenshots paths
+Verification results
