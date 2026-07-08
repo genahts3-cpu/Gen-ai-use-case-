@@ -1,0 +1,696 @@
+You are a Principal AI Architect, Staff Full Stack Engineer, LangGraph Expert, and MCP Integration Engineer.
+
+IMPORTANT:
+
+An existing application named "Policy Renewal Agent" already exists and is fully functional.
+
+DO NOT regenerate the application.
+DO NOT recreate existing modules.
+DO NOT modify working functionality unnecessarily.
+DO NOT break current workflows.
+
+Your task is to ENHANCE the existing application by adding an AI-powered Human Support Scheduling capability using Google Calendar through MCP.
+
+The implementation must be production-quality and work end-to-end.
+
+==================================================
+BUSINESS REQUIREMENT
+==================================================
+
+When customers have policy questions that require human assistance, the AI should automatically:
+
+1. Detect that support is needed.
+2. Check customer availability.
+3. Check customer support team availability.
+4. Find mutually available slots.
+5. Recommend the top available slots.
+6. Allow customer selection.
+7. Create a Google Calendar event.
+8. Generate a Google Meet link.
+9. Send invitations.
+10. Store meeting details.
+11. Send notifications.
+12. Log all actions.
+
+The system should demonstrate Agentic AI and Tool Calling.
+
+==================================================
+ARCHITECTURE
+==================================================
+
+React UI
+    |
+FastAPI
+    |
+Guardrail Layer
+    |
+LangGraph Supervisor
+    |
+---------------------------------------
+| Support Detection Agent             |
+| Availability Agent                  |
+| Meeting Scheduling Agent            |
+| Notification Agent                  |
+---------------------------------------
+    |
+MCP Client
+    |
+---------------------------------------
+| Google Calendar MCP Server          |
+| Email MCP Tool                      |
+| Notification MCP Tool               |
+---------------------------------------
+    |
+Google Calendar API
+Google Meet
+SMTP
+
+==================================================
+USE CASES
+==================================================
+
+Examples:
+
+"I need to talk to someone."
+
+"I need help understanding my policy."
+
+"I want a callback."
+
+"Can I speak with customer support?"
+
+"I have questions about my claim."
+
+"I don't understand my renewal recommendation."
+
+All should trigger meeting scheduling.
+
+==================================================
+NEW AGENTS
+==================================================
+
+1. Support Detection Agent
+
+Responsibilities:
+
+Detect whether human assistance is needed.
+
+Return:
+
+{
+  "needsSupport": true,
+  "reason": "Customer requested human assistance."
+}
+
+==================================================
+
+2. Availability Agent
+
+Responsibilities:
+
+Retrieve customer schedule.
+
+Retrieve support team schedule.
+
+Determine mutually available slots.
+
+Recommend top 3 slots.
+
+Response:
+
+{
+  "recommendedSlots": [
+    "2025-08-06T10:00:00",
+    "2025-08-06T14:00:00",
+    "2025-08-07T11:00:00"
+  ]
+}
+
+==================================================
+
+3. Meeting Scheduling Agent
+
+Responsibilities:
+
+Reserve slot.
+
+Create Google Calendar Event.
+
+Generate Google Meet Link.
+
+Send Invitations.
+
+Persist Meeting.
+
+Create Notifications.
+
+==================================================
+GOOGLE CALENDAR MCP INTEGRATION
+==================================================
+
+Create:
+
+backend/services/mcp/google_calendar_mcp.py
+
+Implement:
+
+authenticate()
+
+get_customer_calendar()
+
+get_support_calendar()
+
+get_available_slots()
+
+find_common_slots()
+
+create_meeting()
+
+cancel_meeting()
+
+reschedule_meeting()
+
+send_calendar_invites()
+
+==================================================
+GOOGLE CALENDAR AUTHENTICATION
+==================================================
+
+Use OAuth2.
+
+Required files:
+
+credentials.json
+token.json
+
+Required scopes:
+
+https://www.googleapis.com/auth/calendar
+
+Store configuration:
+
+GOOGLE_CALENDAR_CREDENTIALS
+GOOGLE_CALENDAR_TOKEN
+
+in .env.
+
+==================================================
+MEETING TABLE
+==================================================
+
+Create table:
+
+Meeting
+
+Fields:
+
+id
+customer_id
+support_user_id
+subject
+description
+meeting_type
+meeting_link
+google_event_id
+scheduled_start
+scheduled_end
+duration_minutes
+status
+created_at
+updated_at
+
+Statuses:
+
+Scheduled
+Completed
+Cancelled
+Rescheduled
+
+==================================================
+SUPPORT TEAM TABLE
+==================================================
+
+Create:
+
+Support_User
+
+Fields:
+
+id
+name
+email
+department
+calendar_email
+status
+
+==================================================
+API ENDPOINTS
+==================================================
+
+POST /support/request
+
+POST /meeting/suggestions
+
+POST /meeting/book
+
+PUT /meeting/reschedule/{meetingId}
+
+DELETE /meeting/{meetingId}
+
+GET /meeting/customer/{customerId}
+
+GET /meeting/support/{supportId}
+
+GET /meeting/upcoming
+
+GET /meeting/history
+
+==================================================
+SUPPORT REQUEST FLOW
+==================================================
+
+Input:
+
+{
+  "customerId": 1,
+  "message": "I need help understanding my policy."
+}
+
+Process:
+
+Support Detection Agent
+↓
+
+Availability Agent
+↓
+
+Get Customer Availability
+↓
+
+Get Support Team Availability
+↓
+
+Find Common Slots
+↓
+
+Return Recommendations
+
+Response:
+
+{
+  "needsSupport": true,
+  "recommendedSlots": [
+    {
+      "start": "2025-08-06T10:00:00",
+      "end": "2025-08-06T10:30:00"
+    },
+    {
+      "start": "2025-08-06T14:00:00",
+      "end": "2025-08-06T14:30:00"
+    },
+    {
+      "start": "2025-08-07T11:00:00",
+      "end": "2025-08-07T11:30:00"
+    }
+  ]
+}
+
+==================================================
+BOOK MEETING
+==================================================
+
+Input:
+
+{
+  "customerId": 1,
+  "supportUserId": 2,
+  "selectedSlot": "2025-08-06T10:00:00",
+  "subject": "Policy Renewal Assistance"
+}
+
+Process:
+
+Create Google Calendar Event
+↓
+
+Generate Google Meet Link
+↓
+
+Store Meeting
+↓
+
+Send Invitations
+↓
+
+Create Notifications
+
+Response:
+
+{
+  "status": "Scheduled",
+  "meetingId": 101,
+  "meetingLink": "https://meet.google.com/xxxx-xxxx-xxx",
+  "scheduledStart": "2025-08-06T10:00:00",
+  "scheduledEnd": "2025-08-06T10:30:00"
+}
+
+==================================================
+LANGGRAPH WORKFLOW
+==================================================
+
+Customer Query
+↓
+
+Support Detection Agent
+↓
+
+Availability Agent
+↓
+
+Meeting Scheduling Agent
+↓
+
+Notification Agent
+↓
+
+Update SQLite
+↓
+
+Audit Logging
+
+==================================================
+NOTIFICATIONS
+==================================================
+
+Create:
+
+Email Confirmation
+
+Meeting Reminder
+
+Cancellation Notification
+
+Reschedule Notification
+
+Customer Notification
+
+Support Team Notification
+
+==================================================
+REACT PAGES
+==================================================
+
+Create:
+
+Customer Support Page
+
+Meeting Scheduler Page
+
+Upcoming Meetings Page
+
+Meeting History Page
+
+Admin Meeting Dashboard
+
+==================================================
+CUSTOMER SUPPORT PAGE
+==================================================
+
+Sections:
+
+Support Request
+
+AI Response
+
+Recommended Time Slots
+
+Upcoming Meetings
+
+Meeting History
+
+Meeting Details
+
+==================================================
+MEETING DASHBOARD
+==================================================
+
+Cards:
+
+Today's Meetings
+
+Upcoming Meetings
+
+Completed Meetings
+
+Cancelled Meetings
+
+Support Representatives Available
+
+Average Meeting Duration
+
+==================================================
+MEETING DETAILS
+==================================================
+
+Show:
+
+Customer Name
+
+Support Representative
+
+Meeting Date
+
+Meeting Time
+
+Meeting Duration
+
+Meeting Status
+
+Google Meet Link
+
+Created Timestamp
+
+==================================================
+UI REQUIREMENTS
+==================================================
+
+Maintain existing UI design.
+
+Professional
+
+Minimal
+
+Enterprise
+
+Luxury SaaS
+
+No icons.
+
+No emojis.
+
+No gradients.
+
+No glassmorphism.
+
+Use:
+
+Cards
+Tables
+Typography
+Spacing
+Subtle borders
+Soft shadows
+
+Colors:
+
+Background:
+#F8FAFC
+
+Cards:
+White
+
+Primary:
+#1E3A8A
+
+Secondary:
+#475569
+
+Accent:
+#2563EB
+
+Success:
+#16A34A
+
+Warning:
+#CA8A04
+
+Danger:
+#DC2626
+
+Responsive layout.
+
+Desktop-first.
+
+==================================================
+AUDIT LOGGING
+==================================================
+
+Log:
+
+customer_id
+support_user_id
+question
+recommended_slots
+selected_slot
+google_event_id
+meeting_link
+status
+agent_executed
+timestamp
+
+==================================================
+GUARDRAILS
+==================================================
+
+Customer cannot book overlapping meetings.
+
+Customer cannot see another customer's meetings.
+
+Meeting duration:
+
+30 minutes maximum.
+
+Only future dates are allowed.
+
+Rate limit:
+
+5 meeting requests per minute.
+
+Validate emails.
+
+Validate calendar responses.
+
+Gracefully handle Google Calendar failures.
+
+==================================================
+TESTS
+==================================================
+
+Create:
+
+Support Detection Tests
+
+Availability Tests
+
+Google Calendar Tests
+
+Meeting Creation Tests
+
+Rescheduling Tests
+
+Cancellation Tests
+
+Notification Tests
+
+Authorization Tests
+
+Rate Limiting Tests
+
+End-to-End Scheduling Tests
+
+==================================================
+DEMO FLOW
+==================================================
+
+Customer:
+
+"I need help understanding my renewal options."
+
+AI:
+
+I can connect you with our support team.
+
+Available slots:
+
+Today - 2:00 PM
+Tomorrow - 10:00 AM
+Tomorrow - 3:00 PM
+
+Customer:
+
+"Book tomorrow at 10 AM."
+
+AI:
+
+Meeting Scheduled Successfully.
+
+Support Representative:
+Priya Sharma
+
+Date:
+06 Aug 2025
+
+Time:
+10:00 AM
+
+Google Meet:
+https://meet.google.com/xxxx-xxxx-xxx
+
+Invitation emails have been sent.
+
+==================================================
+IMPORTANT
+==================================================
+
+Do not regenerate the application.
+
+Modify existing files only when integration is necessary.
+
+Create only required files.
+
+Maintain backward compatibility.
+
+After implementation verify:
+
+Customer requests support
+↓
+
+AI detects support requirement
+↓
+
+Availability retrieved
+↓
+
+Common slots identified
+↓
+
+Customer selects slot
+↓
+
+Google Calendar Event created
+↓
+
+Google Meet link generated
+↓
+
+Invitations sent
+↓
+
+Meeting stored
+↓
+
+Notifications created
+↓
+
+Audit log created
+
+At completion provide:
+
+1. Modified files list
+2. New files list
+3. Database migration scripts
+4. Environment variables
+5. API documentation
+6. Google OAuth setup instructions
+7. Verification report
+8. End-to-end execution screenshots
